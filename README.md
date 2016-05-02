@@ -3,13 +3,14 @@
 Published by Luie Lugo.
 
 ## TOC
-##### Adobe Flash Player
-Script to update the Adobe Flash Player plug-in:
+##### Adobe-Products
+Scripts to update various Adobe products:
 
  * *AdobeFlashUpdate.sh*: Installs or updates Adobe Flash Player
+ * *AdobeReaderUpdate.sh*: Installs or updates Adobe Reader DC
     
 
-##### Adobe Reader DC
-Script to update Adobe Reader DC:
+##### Coming Soon
+Coming Soon:
 
  * **coming soon**
