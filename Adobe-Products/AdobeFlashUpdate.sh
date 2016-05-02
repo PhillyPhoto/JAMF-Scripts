@@ -1,5 +1,4 @@
 #!/bin/sh
-#exec >> /var/log/jamf.log 2>&1
 
 #####################################################################################################
 #
@@ -10,6 +9,9 @@
 #
 # SYNOPSIS
 #	sudo AdobeFlashPlayerUpdate.sh
+#
+# LICENSE
+#   Distributed under the MIT License
 #
 # EXIT CODES
 #   0 - Adobe Flash Player installed successfully
