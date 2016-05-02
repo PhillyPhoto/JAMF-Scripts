@@ -26,7 +26,7 @@
 #
 #   Version: 1.0
 #
-#   - v.1.0 Luie Lugo, 26.04.2016 : updates Flash Player to the latest version
+#   - v.1.0 Luis Lugo, 26.04.2016 : updates Flash Player to the latest version
 #
 ####################################################################################################
 # This script downloads and installs the latest Flash player for compatible Macs
