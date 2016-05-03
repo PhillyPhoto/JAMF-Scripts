@@ -10,7 +10,8 @@ Scripts to update various Adobe products:
  * *AdobeReaderUpdate.sh*: Installs or updates Adobe Reader DC
     
 
-##### Coming Soon
-Coming Soon:
+##### Security
+Scripts covering various sercurity issues:
 
- * **coming soon**
+ * *RemoveCertSHA1.sh*: Removes a certificate based on it's SHA-1 hash
+ * ****
