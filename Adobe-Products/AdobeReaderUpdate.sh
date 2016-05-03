@@ -24,7 +24,9 @@
 ####################################################################################################
 #
 # HISTORY
-#
+#   Based on the threads:
+#   https://jamfnation.jamfsoftware.com/viewProductFile.html?id=42&fid=761
+#   https://jamfnation.jamfsoftware.com/discussion.html?id=12042
 #   Version: 1.4
 #
 #   - v.1.0 Joe Farage, 23.01.2015
@@ -128,8 +130,6 @@ If you have any questions, please call the help desk."
         ;;
         *)
             echoFunc "Selection: $?"
-            #readerProcRunning=1
-            #readerRunningCheck
             exitFunc 3 "Unknown"
         ;;
     esac
@@ -143,7 +143,6 @@ readerUpdateMan () {
 
 If you have any questions, please call the help desk."
     
-    #sudo -u $(ls -l /dev/console | awk '{print $3}')    utility
     jamfHelperPrompt=`/Library/Application\ Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper -windowType hud -lockHUD -title "$hudTitle" -description "$hudDescription" -button1 "Defer" -button2 "Proceed" -defaultButton 1 -timeout 60 -countdown`
 
     case $jamfHelperPrompt in
@@ -153,12 +152,10 @@ If you have any questions, please call the help desk."
         ;;
         2)
             echoFunc "Proceed selected"
-            #readerRunningCheck
+            readerRunningCheck
         ;;
         *)
             echoFunc "Selection: $?"
-            #readerProcRunning=1
-            #readerRunningCheck
             exitFunc 3 "Unknown"
         ;;
     esac
@@ -271,7 +268,7 @@ if [ '`/usr/bin/uname -p`'="i386" -o '`/usr/bin/uname -p`'="x86_64" ]; then
             ;;
             *)
                 echoFunc "Curl function failed on primary download! Error: $?. Review error codes here: https://curl.haxx.se/libcurl/c/libcurl-errors.html"
-                echoFunc "Attempt alternate download from https://admdownload.adobe.com/bin/live/AdobeReader_dc_en_a_install.dmg"
+                echoFunc "Attempting alternate download from https://admdownload.adobe.com/bin/live/AdobeReader_dc_en_a_install.dmg"
                 curl -s -o /tmp/AdobeReader_dc_en_a_install.dmg https://admdownload.adobe.com/bin/live/AdobeReader_dc_en_a_install.dmg
                 case $? in
                     0)
