@@ -1,6 +1,6 @@
 # JAMF-Scripts
 
-Published by Luie Lugo.
+Published by Luis Lugo.
 
 ## TOC
 ##### Adobe-Products
@@ -14,4 +14,4 @@ Scripts to update various Adobe products:
 Scripts covering various sercurity issues:
 
  * *RemoveCertSHA1.sh*: Removes a certificate based on it's SHA-1 hash
- * ****
+ * **_**
