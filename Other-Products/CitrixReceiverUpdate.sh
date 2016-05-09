@@ -20,6 +20,7 @@
 #   3 - Citrix Receiver update unsuccessful
 #   4 - Citrix Receiver is running or was attempted to be installed manually and user deferred install
 #   5 - Not an Intel-based Mac
+#   6 - ERROR: Wireless connected to a known bad WiFi network that won't allow downloading of the installer
 #
 ####################################################################################################
 #
@@ -72,6 +73,7 @@ exitFunc () {
         3) exitCode="3 - ERROR: Citrix Receiver update unsuccessful, version remains at  $2!";;
         4) exitCode="4 - ERROR: Citrix Receiver is running or was attempted to be installed manually and user deferred install.";;
         5) exitCode="5 - ERROR: Not an Intel-based Mac.";;
+        6) exitCode="6 - ERROR: Wireless connected to a known bad WiFi network that won't allow downloading of the installer! SSID: $2";;
         *) exitCode="$1";;
     esac
     echoFunc "Exit code: $exitCode"
@@ -147,6 +149,23 @@ If you have any questions, please call the help desk."
 
 echoFunc ""
 echoFunc "======================== Starting Script ========================"
+
+# Are we on a bad wireless network?
+if [[ "$4" != "" ]]
+then
+    wifiSSID=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I |     awk '/ SSID/ {print substr($0, index($0, $2))}'`
+    echoFunc "Current Wireless SSID: $wifiSSID"
+
+    badSSIDs=( $4 )
+    for (( i = 0; i < "${#badSSIDs[@]}"; i++ ))
+    do
+        if [[ "$wifiSSID" == "${badSSIDs[i]}" ]]
+        then
+            echoFunc "Connected to a WiFi network that blocks downloads!"
+            exitFunc 6 "${badSSIDs[i]}"
+        fi
+    done
+fi
 
 # Are we running on Intel?
 if [ '`/usr/bin/uname -p`'="i386" -o '`/usr/bin/uname -p`'="x86_64" ]; then
