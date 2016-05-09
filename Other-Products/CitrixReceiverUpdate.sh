@@ -10,6 +10,9 @@
 # SYNOPSIS
 #	sudo CitrixReceiverUpdate.sh
 #
+# LICENSE
+#   Distributed under the MIT License
+#
 # EXIT CODES
 #   0 - Citrix Receiver is current
 #   1 - Citrix Receiver installed successfully
