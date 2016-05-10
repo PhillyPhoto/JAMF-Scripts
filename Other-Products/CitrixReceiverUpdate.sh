@@ -28,7 +28,7 @@
 #
 #   Version: 1.0
 #
-#   - v.1.0 Luie Lugo, 09.05.2016 : Updates Citrix Receiver
+#   - v.1.0 Luis Lugo, 09.05.2016 : Updates Citrix Receiver
 #
 ####################################################################################################
 # Script to download and install Citrix Receiver.
@@ -99,7 +99,6 @@ receiverRunning () {
 
 If you have any questions, please call the help desk."
     
-    #sudo -u $(ls -l /dev/console | awk '{print $3}')    utility
     jamfHelperPrompt=`/Library/Application\ Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper -windowType hud -lockHUD -title "$hudTitle" -description "$hudDescription" -button1 "Proceed" -button2 "Defer" -defaultButton 1`
 
     case $jamfHelperPrompt in
