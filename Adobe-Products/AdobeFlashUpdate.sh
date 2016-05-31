@@ -24,9 +24,10 @@
 #
 # HISTORY
 #
-#   Version: 1.0
+#   Version: 1.1
 #
 #   - v.1.0 Luis Lugo, 26.04.2016 : updates Flash Player to the latest version
+#   - v.1.0 Luis Lugo, 31.05.2016 : added WiFi SSID check
 #
 ####################################################################################################
 # This script downloads and installs the latest Flash player for compatible Macs
@@ -77,6 +78,23 @@ exitFunc () {
 echoFunc ""
 echoFunc "======================== Starting Script ========================"
 
+# Are we on a bad wireless network?
+if [[ "$4" != "" ]]
+then
+    wifiSSID=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`
+    echoFunc "Current Wireless SSID: $wifiSSID"
+
+    badSSIDs=( $4 )
+    for (( i = 0; i < "${#badSSIDs[@]}"; i++ ))
+    do
+        if [[ "$wifiSSID" == "${badSSIDs[i]}" ]]
+        then
+            echoFunc "Connected to a WiFi network that blocks downloads!"
+            exitFunc 6 "${badSSIDs[i]}"
+        fi
+    done
+fi
+
 ## Get OS version and adjust for use with the URL string
 OSvers_URL=$( sw_vers -productVersion | sed 's/[.]/_/g' )
 
@@ -119,7 +137,7 @@ if [ -e "/Library/Internet Plug-Ins/Flash Player.plugin" ]; then
                     TMPMOUNT=`/usr/bin/mktemp -d /tmp/flashplayer.XXXX`
 
                     echoFunc "Mounting the latest Flash Player disk image to /tmp/flashplayer.XXXX mountpoint"
-                    hdiutil attach "$flash_dmg" -mountpoint "$TMPMOUNT" -nobrowse -noverify -noautoopen
+                    hdiutil attach "$flash_dmg" -mountpoint "$TMPMOUNT" -nobrowse -noverify -noautoopen -quiet
 
                     pkg_path="$(/usr/bin/find $TMPMOUNT -maxdepth 1 \( -iname \*Flash*\.pkg -o -iname \*Flash*\.mpkg \))"
 
@@ -138,7 +156,7 @@ if [ -e "/Library/Internet Plug-Ins/Flash Player.plugin" ]; then
                     fi
 
                     echoFunc "Unmounting the Flash Player disk image from /tmp/flashplayer.XXXX"
-                    /usr/bin/hdiutil detach "$TMPMOUNT"
+                    /usr/bin/hdiutil detach "$TMPMOUNT" -quiet
 
                     echoFunc "Removing the /tmp/flashplayer.XXXX mountpoint"
                     /bin/rm -rf "$TMPMOUNT"
