@@ -91,7 +91,7 @@ while [ -z "$latestver" ]
 done
 
 if [ -e "/Library/Internet Plug-Ins/Flash Player.plugin" ]; then
-    currentver=`/usr/libexec/Plistbuddy -c "Print :CFBundleVersion" /Library/Internet\ Plug-Ins/Flash\ Player.plugin/Contents/Info.plist CFBundleVersion`
+    currentver=`/usr/libexec/Plistbuddy -c "Print :CFBundleVersion" /Library/Internet\ Plug-Ins/Flash\ Player.plugin/Contents/Info.plist`
     if [ "$latestver" -eq "$currentver" ]; then
         exitFunc 1 "$currentver"
     else
@@ -154,7 +154,7 @@ if [ -e "/Library/Internet Plug-Ins/Flash Player.plugin" ]; then
         fi
 
         if [ -e "/Library/Internet Plug-Ins/Flash Player.plugin" ]; then
-            newver=`/usr/libexec/Plistbuddy -c "Print :CFBundleVersion" /Library/Internet\ Plug-Ins/Flash\ Player.plugin/Contents/Info.plist CFBundleVersion`
+            newver=`/usr/libexec/Plistbuddy -c "Print :CFBundleVersion" /Library/Internet\ Plug-Ins/Flash\ Player.plugin/Contents/Info.plist`
             if [ "$latestver" -eq "$newver" ]; then
                 exitFunc 0 "$newver"
             else
